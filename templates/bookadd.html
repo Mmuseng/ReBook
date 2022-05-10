@@ -51,28 +51,43 @@
             let file = $('#file')[0].files[0]
             let form_data = new FormData()
 
-            form_data.append("file_give", file)
-            form_data.append("title_give", title)
-            form_data.append("author_give", author)
-            form_data.append("desc_give", desc)
+            if (title.length == 0) {
+                alert("제목을 입력하세요.");
+                return false;
+            } else if (author.length == 0) {
+                alert("저자를 입력하세요.");
+                return false;
+            } else if (desc.length == 0) {
+                alert("설명을 입력하세요.");
+                return false;
+            } else if (!file) {
+                alert("파일을 선택하세요.");
+                return false;
+            } else {
+                form_data.append("file_give", file)
+                form_data.append("title_give", title)
+                form_data.append("author_give", author)
+                form_data.append("desc_give", desc)
 
-            $.ajax({
-                type: "POST",
-                url: "/book",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = '/';
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: "/book",
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert(response["msg"])
+                        window.location.href = '/';
+                    }
+                });
+            }
         }
 
         function setThumbnail(event) {
-            var reader = new FileReader();
+            $("#image_container *").remove(); <!-- 기존의 등록 된 사진 제거 -->
 
+            var reader = new FileReader();
             reader.onload = function (event) {
                 var img = document.createElement("img");
                 img.setAttribute("src", event.target.result);
@@ -85,17 +100,15 @@
 </head>
 <body>
 <header>
-    <div class="inner">
-        <p class="logo">ReBook</p>
-    </div>
     <div class="wrap">
         <div class="container">
+            <p class="logo">ReBook</p>
             <div class="flex-item">
                 <div style="float: left">
                     <div class="custom-file">
+                        <div class="image_container" id="image_container"></div>
+                        <label for="file">업로드</label>
                         <input type="file" id="file" accept="image/*" onchange="setThumbnail(event);"/>
-                        <div id="image_container"></div>
-
                     </div>
                 </div>
                 <div class="menu_item">
@@ -119,7 +132,7 @@
                             <textarea
                                     class="form-control"
                                     id="book-description"
-                                    rows="5"
+                                    rows="8"
                             ></textarea>
                         </div>
                         <button
