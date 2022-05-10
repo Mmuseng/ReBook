@@ -1,0 +1,49 @@
+* {
+    font-family: "Do Hyeon", sans-serif;
+    color: black;
+}
+
+.logo {
+    width: 100px;
+    height: 88px;
+    margin: 20px 0px 0px 20px;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.info {
+    margin-top: 210px;
+    margin-bottom: 20px;
+}
+
+.inner {
+    width: 100px;
+    height: 100px;
+}
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.menu_item {
+    flex: none;
+    height: auto;
+}
+
+.wrap {
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 100px;
+}
+
+.book_info {
+    margin-left: 300px;
+    margin-top: auto;
+    padding-top: 45px;
+}
+
+.mybtn {
+    margin-left: 310px;
+}
