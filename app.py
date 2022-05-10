@@ -7,7 +7,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 app = Flask(__name__)
 from datetime import datetime, timedelta
 
-SECRET_KEY = 'ReBook'
+SECRET_KEY = 'REBOOK'
 
 client = MongoClient(mongo_link)
 db = client.rebook
@@ -45,7 +45,7 @@ def login():
 
     if result is not None:                                                   # result가 있다면!
         payload = {
-            'id2': id_receive,
+            'user': id_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)       # 로그인 24시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY,algorithm='HS256')            # jwt 토큰을 발행. 놀이공원 자유입장권과 같은 것. 어떤 사람이 언제까지 입장이 유효하다를 적시해줌.
@@ -83,4 +83,3 @@ def sign_up_check():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
