@@ -98,7 +98,10 @@ def book_add():
     save_to = f'static/{filename}.{extension}'
     file.save(save_to)
 
+    count = db.book.estimated_document_count({}) # 테이블 개수 가져오기
+
     doc = {
+        'num':count+1,
         'title':title_receive,
         'author':author_receive,
         'desc':desc_receive,
