@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Webpage Title -->
     <title>login</title>
@@ -14,148 +15,65 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&family=Yeon+Sung&display=swap"
+        rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-    <style>
-        body {
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://mblogthumb-phinf.pstatic.net/MjAxNzA3MjhfNTAg/MDAxNTAxMTk4MzgwMzk4.r4LG9oBd-598YOcsrmKjBzDTaMT-2nnheF_9QgAIbGwg.GEekgg89-Bi5g-lx6TGlCqJEtitxUWScDe87WVFmWnog.JPEG.shapres/shutterstock_153991310.jpg?type=w800');
-            background-position: center;
-            background-size: cover;
-            font-family: 'Jua', sans-serif;
-        }
-        .logo{
-            padding-top: 30px;
-            width: 200px;
-        }
-        .section {
-            height: 100vh;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: rgba(255,255,255,0.8);
-            padding: 0;
-        }
-        .container {
-            width: 100vw;
-            height: 100vh;
-        }
-        .box {
-            position: absolute;
-            top: 48%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            width: 540px;
-            height: 430px;
-            padding: 1.5rem 2.5rem;
-        }
-        h1 {
-            font-family: 'Jua', sans-serif;
-            text-align: center;
-            margin-bottom: 19px;
-            font-size: 2.5rem;
-            color: #2641E2;
-        }
-        .button.is-sparta {
-            background-color: #2E44FF;
-            color: #ffffff;
-            font-family: 'Jua', sans-serif;
-        }
-        .button.is-sparta.is-outlined {
-            background-color: transparent;
-            color: #9A9A9A;
-        }
-    </style>
-
-    <script>
-        function sign_in() {
-            let id = $("#input-username").val()               // id값을 읽어옴.
-            let pw = $("#input-password").val()               // pw값을 읽어옴.
-
-            if (id == "") {
-                $("#help-id-login").text("아이디를 입력해주세요.")     // 아이디의 값들이 빈 값인지 아닌지 검사. -> ""(아이디 창이 비어 있으면) text를 보여줌.
-                $("#input-username").focus()
-                return;
-            } else {
-                $("#help-id-login").text("")
-            }
-
-            if (pw == "") {
-                $("#help-password-login").text("비밀번호를 입력해주세요.")   // 비밀번호의 값들이 빈 값인지 아닌지 검사. -> ""(pw 창이 비어 있으면) text를 보여줌.
-                $("#input-password").focus()
-                return;
-            } else {
-                $("#help-password-login").text("")
-            }
-            $.ajax({
-                type: "POST",
-                url: "/login",
-                data: {
-                    id_give: id,
-                    pw_give: pw
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        $.cookie('token', response['token'], {path: '/'});
-                        window.location.href = '/main';
-
-                    } else {
-                        alert(response['msg'])
-                    }
-                }
-            });
-        }
-    </script>
-
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
 </head>
+
 <body>
-<section class="section">
-    <div class="container">
-        <div class="logo">
-            <h1>ReBook</h1>
-        </div>
-        <div class="box">
-            <h1>로그인</h1>
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <div class="field has-addons">
-                            <div class="control has-icons-left" style="width:100%">
-                                <input id="input-username" class="input" type="text" placeholder="아이디">
-                                <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+    <section class="section">
+        <div class="container">
+            <div class="logo">
+                <h1>ReBook</h1>
+            </div>
+            <div class="box">
+                <h1>로그인</h1>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <div class="field has-addons">
+                                <div class="control has-icons-left" style="width:100%">
+                                    <input id="input-username" class="input" type="text" placeholder="아이디">
+                                    <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                                </div>
+                                <div id="btn-check-dup" class="control">
+                                </div>
                             </div>
-                            <div id="btn-check-dup" class="control">
+                            <p id="help-id-login" class="help is-danger"></p>
+                            <div class="field">
+                                <div class="control has-icons-left">
+                                    <input id="input-password" class="input" type="password" placeholder="비밀번호">
+                                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                                </div>
                             </div>
+                            <p id="help-password-login" class="help is-danger"></p>
                         </div>
-                        <p id="help-id-login" class="help is-danger"></p>
-                        <div class="field">
-                            <div class="control has-icons-left">
-                                <input id="input-password" class="input" type="password" placeholder="비밀번호">
-                                <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-                            </div>
-                        </div>
-                        <p id="help-password-login" class="help is-danger"></p>
-                    </div>
-                    <div id="div-sign-in-or-up" class="has-text-centered">
-                        <nav class="level is-mobile">
-                            <button class="level-item button is-sparta" onclick="sign_in()">
-                                로그인
-                            </button>
-                        </nav>
-                        <hr>
-                        <p class="mb-3">아직 회원이 아니시라구요? </p>
-                        <nav class="level is-mobile">
-                            <button class="level-item button is-sparta is-outlined"
+                        <div id="div-sign-in-or-up" class="has-text-centered">
+                            <nav class="level is-mobile">
+                                <button class="level-item button is-sparta" onclick="sign_in()">
+                                    로그인
+                                </button>
+                            </nav>
+                            <hr>
+                            <p class="mb-3">아직 회원이 아니시라구요? </p>
+                            <nav class="level is-mobile">
+                                <button class="level-item button is-sparta is-outlined"
                                     onclick="window.location.href='/sign_up'">
-                                회원가입하기
-                            </button>
-                        </nav>
+                                    회원가입하기
+                                </button>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 </body>
+
 </html>
