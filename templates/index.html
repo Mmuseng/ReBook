@@ -82,10 +82,10 @@
             {% for book in books %}
             <div class="col mb-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
+                    <img src="/static/{{ book.file }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{book.subject}}</h5>
-                        <p class="card-text">{{book.description}}</p>
+                        <h5 class="card-title">{{book.title}}</h5>
+                        <p class="card-text">{{book.desc}}</p>
                         <a href="/book" class="btn btn-primary">더보기</a>
                     </div>
                 </div>
