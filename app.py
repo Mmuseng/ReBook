@@ -73,21 +73,29 @@ def sign_up():
     pw_receive = request.form['pw_give']
     pw_hash = hashlib.sha256(pw_receive.encode(
         'utf-8')).hexdigest()          # 해쉬 함수를 걸어준다
+    email_receive = request.form['email_give']
     doc = {
         "id": id_receive,                                                     # 아이디
         "pw": pw_hash,                                                        # 비밀번호
-        # 프로필 이름 기본값은 아이디
-        "profile_name": id_receive
+        "profile_name": id_receive,                                           # 프로필 이름 기본값은 아이디
+        "email" : email_receive                                               # 이메일
     }
     db.users.insert_one(doc)
     return jsonify({'result': 'success'})
 
 
-@app.route("/sign_up/chkid", methods=["POST"])
+@app.route("/sign_up/id_chkid", methods=["POST"])
 def sign_up_check():
     # 아이디 중복 확인
     id_receive = request.form['id_give']
     exists = bool(db.users.find_one({"id": id_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
+
+@app.route('/sign_up/email_chkid', methods=['POST'])
+def check_dup_email():
+    # 이메일 중복 확인
+    email_receive = request.form['email_give']
+    exists = bool(db.users.find_one({"email": email_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
 @app.route('/bookadd')
@@ -128,4 +136,3 @@ def book_add():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
