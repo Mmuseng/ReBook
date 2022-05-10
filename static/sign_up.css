@@ -1,0 +1,60 @@
+body {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://mblogthumb-phinf.pstatic.net/MjAxNzA3MjhfNTAg/MDAxNTAxMTk4MzgwMzk4.r4LG9oBd-598YOcsrmKjBzDTaMT-2nnheF_9QgAIbGwg.GEekgg89-Bi5g-lx6TGlCqJEtitxUWScDe87WVFmWnog.JPEG.shapres/shutterstock_153991310.jpg?type=w800');
+    background-position: center;
+    background-size: cover;
+    font-family: 'Jua', sans-serif;
+}
+
+.logo {
+    padding-top: 36px;
+    width: 200px;
+}
+
+.section {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.box {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 540px;
+    height: 470px;
+    padding: 2rem 2.5rem;
+}
+
+h1 {
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+    color: #2641E2;
+}
+
+.media-content {
+    margin-top: 16px;
+}
+
+.button.is-sparta {
+    background-color: #2E44FF;
+    color: #fff;
+}
+
+.level-item.button.is-sparta {
+    height: 55px;
+}
+
+.button.is-sparta.is-outlined {
+    background-color: transparent;
+    color: #2641E2;
+}
