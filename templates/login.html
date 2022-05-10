@@ -98,7 +98,7 @@
                 success: function (response) {
                     if (response['result'] == 'success') {
                         $.cookie('token', response['token'], {path: '/'});
-                        window.location.href = '/main';
+                        window.location.href = '/';
 
                     } else {
                         alert(response['msg'])
