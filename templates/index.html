@@ -69,66 +69,18 @@
     </div>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-4">
+            {% for book in books %}
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
+                        <h5 class="card-title">{{book.subject}}</h5>
+                        <p class="card-text">{{book.description}}</p>
                         <a href="/book" class="btn btn-primary">더보기</a>
                     </div>
                 </div>
             </div>
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
-                        <a href="/book" class="btn btn-primary">더보기</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
-                        <a href="/book" class="btn btn-primary">더보기</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
-                        <a href="/book" class="btn btn-primary">더보기</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
-                        <a href="/book" class="btn btn-primary">더보기</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/100x150.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">책 제목</h5>
-                        <p class="card-text">책 설명</p>
-                        <a href="/book" class="btn btn-primary">더보기</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
