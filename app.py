@@ -75,3 +75,36 @@ def sign_up_check():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
+@app.route('/bookadd')
+def bookadd_template():
+    return render_template('bookadd.html')
+
+@app.route("/book", methods=["POST"])
+def book_add():
+    title_receive = request.form['title_give']
+    author_receive = request.form['author_give']
+    desc_receive = request.form['desc_give']
+
+    file = request.files["file_give"]
+
+    extension = file.filename.split('.')[-1]
+
+    today = datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+
+    filename = f'file-{mytime}'
+
+    save_to = f'static/{filename}.{extension}'
+    file.save(save_to)
+
+    doc = {
+        'title':title_receive,
+        'author':author_receive,
+        'desc':desc_receive,
+        'file': f'{filename}.{extension}'
+    }
+
+    db.book.insert_one(doc)
+
+    return jsonify({'msg' : '등록 완료!'})
