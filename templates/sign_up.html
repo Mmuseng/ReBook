@@ -21,8 +21,10 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&family=Yeon+Sung&display=swap"
+          rel="stylesheet">
 
+    <!-- css파일 경로 설정 -->
     <link rel="stylesheet" type="text/css" href="../static/css/sign_up.css">
 
     <!-- bootstrap CSS -->
@@ -34,18 +36,19 @@
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <!-- script 파일 경로 설정  -->
     <script src="../static/js/sign_up.js"></script>
 
 
 </head>
 <body>
-    <!-- 회원가입 박스 -->
-    <section class="section">
-        <div class="container">
-            <div class="logo">
-                <h1>ReBook</h1>
-            </div>
-            <div class="box">
+<!-- 회원가입 박스 -->
+<section class="section">
+    <div class="container">
+        <div class="logo">
+            <h1>ReBook</h1>
+        </div>
+        <div class="box">
             <h1>회원가입</h1>
             <article class="media">
                 <div class="media-content">
@@ -55,7 +58,7 @@
                                 <input id="input-username" class="input" type="text" placeholder="아이디">
                                 <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
-                            <div id="btn-check-dup" class="control">
+                            <div id="btn-check-dup1" class="control">
                                 <button class="button is-sparta" onclick="check_dup_id()">중복확인</button>
                             </div>
                         </div>
@@ -71,29 +74,41 @@
                                 사용 가능합니다.</p>
                         </div>
                     </div>
-
-                    <div id="sign-up-box">
-                        <div class="mb-5">
-                            <div class="field">
-                                <div class="control has-icons-left" style="width:100%">
-                                    <input id="input-password2" class="input" type="password"
-                                           placeholder="비밀번호 재입력">
-                                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-                                </div>
-                                <p id="help-password2" class="help">비밀번호를 다시 한 번 입력해주세요.</p>
-
+                <div id="sign-up-box">
+                    <div class="mb-5">
+                        <div class="field">
+                            <div class="control has-icons-left" style="width:100%">
+                                <input id="input-password2" class="input" type="password"
+                                       placeholder="비밀번호 재입력">
+                                <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <p id="help-password2" class="help">비밀번호를 다시 한 번 입력해주세요.</p>
+                        </div>
+                        <div class="content">
+                        <div class="field has-addons">
+                            <div class="control has-icons-left" style="width:100%">
+                                <input id="input-email" class="input" type="email"
+                                       placeholder="example@example.com">
+                                <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                            </div>
+                            <div id="btn-check-dup2" class="control">
+                                    <button class="button is-sparta" onclick="check_dup_email()">중복확인</button>
                             </div>
                         </div>
+                        <p id="help-email" class="help">이메일을 입력해주세요.</p>
+                        <p id="help-email-login" class="help is-danger"></p>
                     </div>
-                    <div id="sign-up-box2">
-                        <nav class="level is-mobile">
-                            <button class="level-item button is-sparta is-outlined" onclick="toggle_sign_up()">취소</button>
-                            <button class="level-item button is-sparta" onclick="sign_up()">회원가입</button>
-                        </nav>
                     </div>
                 </div>
-            </article>
+                <div id="sign-up-box2">
+                    <nav class="level is-mobile">
+                        <button class="level-item button is-sparta is-outlined" onclick="toggle_sign_up()">취소</button>
+                        <button class="level-item button is-sparta" onclick="sign_up()">회원가입</button>
+                    </nav>
+                </div>
         </div>
+        </article>
+    </div>
     </div>
 </section>
 </body>
