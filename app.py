@@ -4,28 +4,20 @@ import hashlib
 from info import mongo_link
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request, redirect, url_for
+import certifi
 app = Flask(__name__)
 from datetime import datetime, timedelta
 
 SECRET_KEY = 'REBOOK'
-
-client = MongoClient(mongo_link)
+tlsCAFile = certifi.where()
+client = MongoClient(mongo_link, tlsCAFile=certifi.where())
 db = client.rebook
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-# 로그인 시간이 만료되면 홈으로 이동.
-@app.route('/')
-def login_over():
-    token_receive = request.cookies.get('token')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        return render_template('home.html')
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login"))
+    book_list = list(db.book.find({}, {'_id': False}))
+    return render_template('index.html', books=book_list)
 
 
 @app.route('/login')
@@ -83,3 +75,4 @@ def sign_up_check():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
