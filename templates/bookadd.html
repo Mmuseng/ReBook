@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Webpage Title -->
     <title>ReBook</title>
 
     <!-- Required meta tags -->
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
     <!-- Bootstrap CSS -->
     <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous"
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="/static/detail.css"/>
+    <link rel="stylesheet" href="/static/detail.css" />
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
     ></script>
 
     <!-- 구글폰트 -->
     <link
-            href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
     />
     <style type="text/css"></style>
 
@@ -39,114 +39,119 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     <script>
-        $(document).ready(function () {
-            bsCustomFileInput.init()
-        })
+      $(document).ready(function () {
+        bsCustomFileInput.init();
+      });
 
-        function posting() {
-            let title = $("#book-title").val();
-            let author = $("#book-author").val();
-            let desc = $("#book-description").val();
+      function posting() {
+        let title = $("#book-title").val();
+        let author = $("#book-author").val();
+        let desc = $("#book-description").val();
 
-            let file = $('#file')[0].files[0]
-            let form_data = new FormData()
+        let file = $("#file")[0].files[0];
+        let form_data = new FormData();
 
-            if (title.length == 0) {
-                alert("제목을 입력하세요.");
-                return false;
-            } else if (author.length == 0) {
-                alert("저자를 입력하세요.");
-                return false;
-            } else if (desc.length == 0) {
-                alert("설명을 입력하세요.");
-                return false;
-            } else if (!file) {
-                alert("파일을 선택하세요.");
-                return false;
-            } else {
-                form_data.append("file_give", file)
-                form_data.append("title_give", title)
-                form_data.append("author_give", author)
-                form_data.append("desc_give", desc)
+        if (title.length == 0) {
+          alert("제목을 입력하세요.");
+          return false;
+        } else if (author.length == 0) {
+          alert("저자를 입력하세요.");
+          return false;
+        } else if (desc.length == 0) {
+          alert("설명을 입력하세요.");
+          return false;
+        } else if (!file) {
+          alert("파일을 선택하세요.");
+          return false;
+        } else {
+          form_data.append("file_give", file);
+          form_data.append("title_give", title);
+          form_data.append("author_give", author);
+          form_data.append("desc_give", desc);
 
-                $.ajax({
-                    type: "POST",
-                    url: "/book",
-                    data: form_data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        alert(response["msg"])
-                        window.location.href = '/';
-                    }
-                });
-            }
+          $.ajax({
+            type: "POST",
+            url: "/book",
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              alert(response["msg"]);
+              window.location.href = "/";
+            },
+          });
         }
+      }
 
-        function setThumbnail(event) {
-            $("#image_container *").remove(); <!-- 기존의 등록 된 사진 제거 -->
-
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var img = document.createElement("img");
-                img.setAttribute("src", event.target.result);
-                document.querySelector("div#image_container").appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
+      function setThumbnail(event) {
+        $("#image_container *").remove(); <!-- 기존의 등록 된 사진 제거 -->
+        var reader = new FileReader();
+        reader.onload = function (event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          document.querySelector("div#image_container").appendChild(img);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
     </script>
-</head>
-<body>
-<header>
-    <div class="wrap">
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
         <div class="container">
-            <p class="logo">ReBook</p>
-            <div class="flex-item">
-                <div style="float: left">
-                    <div class="custom-file">
-                        <div class="image_container" id="image_container"></div>
-                        <label for="file">업로드</label>
-                        <input type="file" id="file" accept="image/*" onchange="setThumbnail(event);"/>
-                    </div>
-                </div>
-                <div class="menu_item">
-                    <div class="book_info">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"
-                            >책 제목</label
-                            >
-                            <input type="text" class="form-control" id="book-title"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"
-                            >책 저자</label
-                            >
-                            <input type="text" class="form-control" id="book-author"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label"
-                            >설명</label
-                            >
-                            <textarea
-                                    class="form-control"
-                                    id="book-description"
-                                    rows="8"
-                            ></textarea>
-                        </div>
-                        <button
-                                onclick="posting()"
-                                type="button"
-                                class="mybtn btn btn-primary"
-                        >
-                            등록하기
-                        </button>
-                    </div>
-                </div>
+          <a href="/" class="logo">
+            <p>ReBook</p>
+          </a>
+          <div class="flex-item">
+            <div style="float: left">
+              <div class="custom-file">
+                <div class="image_container" id="image_container"></div>
+                <label for="file">업로드</label>
+                <input
+                  type="file"
+                  id="file"
+                  accept="image/*"
+                  onchange="setThumbnail(event);"
+                />
+              </div>
             </div>
+            <div class="menu_item">
+              <div class="book_info">
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >책 제목</label
+                  >
+                  <input type="text" class="form-control" id="book-title" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >책 저자</label
+                  >
+                  <input type="text" class="form-control" id="book-author" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label"
+                    >설명</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="book-description"
+                    rows="8"
+                  ></textarea>
+                </div>
+                <button
+                  onclick="posting()"
+                  type="button"
+                  class="mybtn btn btn-primary"
+                >
+                  등록하기
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</header>
-</body>
+      </div>
+    </header>
+  </body>
 </html>

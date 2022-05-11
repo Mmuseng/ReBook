@@ -3,10 +3,11 @@ import jwt
 import hashlib
 from info import mongo_link
 from pymongo import MongoClient
-from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import Flask, render_template, jsonify, request, redirect, url_for, flash
 import certifi
 
 app = Flask(__name__)
+app.secret_key = "REBOOK"
 
 SECRET_KEY = 'REBOOK'
 tlsCAFile = certifi.where()
@@ -97,21 +98,22 @@ def check_dup_email():
 
 @app.route('/bookadd')
 def bookadd_template():
-    return render_template('bookadd.html')
+    token_receive = request.cookies.get('token')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        return render_template('bookadd.html')
+    except jwt.ExpiredSignatureError:
+        # 로그인 시간 만료
+        flash("로그인이 필요한 페이지입니다.")
+        return redirect(url_for("login"))
+    except jwt.exceptions.DecodeError:
+        # 로그인 정보 존재x
+        flash("로그인이 필요한 페이지입니다.")
+        return redirect(url_for("login"))
 
 
 @app.route("/book", methods=["POST"])
 def book_add():
-    token_receive = request.cookies.get('token')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    except jwt.ExpiredSignatureError:
-        # 로그인 시간 만료
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다." ))
-    except jwt.exceptions.DecodeError:
-        # 로그인 정보 존재x
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
     title_receive = request.form['title_give']
     author_receive = request.form['author_give']
     desc_receive = request.form['desc_give']
