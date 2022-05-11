@@ -17,17 +17,13 @@ db = client.rebook
 @app.route('/')
 def home():
     book_list = list(db.book.find({}, {'_id': False}))
-
     # 로그인 체크
     token_receive = request.cookies.get('token')
-
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-
         login_flag = True
     except:
         login_flag = False
-
     return render_template('index.html', books=book_list, login=login_flag)
 
 
@@ -51,8 +47,7 @@ def login():
         payload = {
             'user': id_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)       # 로그인 24시간 유지
-        }
-        # jwt 토큰을 발행. 놀이공원 자유입장권과 같은 것. 어떤 사람이 언제까지 입장이 유효하다를 적시해줌.
+        }                                                                    # jwt 토큰을 발행. 놀이공원 자유입장권과 같은 것. 어떤 사람이 언제까지 입장이 유효하다를 적시해줌.
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         return jsonify({'result': 'success', 'token': token})
         # 찾지 못하면,
@@ -104,6 +99,16 @@ def bookadd_template():
 
 @app.route("/book", methods=["POST"])
 def book_add():
+    token_receive = request.cookies.get('token')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        # 로그인 시간 만료
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다." ))
+    except jwt.exceptions.DecodeError:
+        # 로그인 정보 존재x
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
     title_receive = request.form['title_give']
     author_receive = request.form['author_give']
     desc_receive = request.form['desc_give']
