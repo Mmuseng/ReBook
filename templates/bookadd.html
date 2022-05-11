@@ -19,7 +19,7 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="/static/detail.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
@@ -27,13 +27,6 @@
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
       crossorigin="anonymous"
     ></script>
-
-    <!-- 구글폰트 -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap"
-      rel="stylesheet"
-    />
-    <style type="text/css"></style>
 
     <!-- 파일 업로드 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
@@ -85,7 +78,7 @@
       }
 
       function setThumbnail(event) {
-        $("#image_container *").remove(); <!-- 기존의 등록 된 사진 제거 -->
+        $("#image_container *").remove(); // 기존의 등록된 사진 제거
         var reader = new FileReader();
         reader.onload = function (event) {
           var img = document.createElement("img");
@@ -96,62 +89,58 @@
       }
     </script>
   </head>
-  <body>
-    <header>
-      <div class="wrap">
-        <div class="container">
-          <a href="/" class="logo">
-            <p>ReBook</p>
-          </a>
-          <div class="flex-item">
-            <div style="float: left">
-              <div class="custom-file">
-                <div class="image_container" id="image_container"></div>
-                <label for="file">업로드</label>
-                <input
-                  type="file"
-                  id="file"
-                  accept="image/*"
-                  onchange="setThumbnail(event);"
-                />
-              </div>
-            </div>
-            <div class="menu_item">
-              <div class="book_info">
-                <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label"
+  <body class="page-book-add">
+    <div class="wrap">
+        <div class="header">
+            <h1>ReBook</h1>
+            <a href="/login">로그인</a>
+        </div>
+        <div class="title">
+            <h2>책 추가</h2>
+        </div>
+        <div class="content">
+            <div class="book">
+                <div class="book-image">
+                    <div class="custom-file">
+                        <div class="image-container" id="image_container"></div>
+                        <div>
+                            <label for="file">업로드</label>
+                            <input
+                                type="file"
+                                id="file"
+                                accept="image/*"
+                                onchange="setThumbnail(event);"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="book-info">
+                    <label for="exampleFormControlInput1" class="form-label"
                     >책 제목</label
-                  >
-                  <input type="text" class="form-control" id="book-title" />
-                </div>
-                <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label"
+                    >
+                    <input type="text" class="form-control" id="book-title" />
+                    <label for="exampleFormControlInput1" class="form-label"
                     >책 저자</label
-                  >
-                  <input type="text" class="form-control" id="book-author" />
-                </div>
-                <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label"
+                    >
+                    <input type="text" class="form-control" id="book-author" />
+                    <label for="exampleFormControlTextarea1" class="form-label"
                     >설명</label
-                  >
-                  <textarea
+                    >
+                    <textarea
                     class="form-control"
                     id="book-description"
                     rows="8"
-                  ></textarea>
+                    ></textarea>
+                    <button
+                        onclick="posting()"
+                        type="button"
+                        class="mybtn btn btn-primary"
+                    >
+                        등록하기
+                    </button>
                 </div>
-                <button
-                  onclick="posting()"
-                  type="button"
-                  class="mybtn btn btn-primary"
-                >
-                  등록하기
-                </button>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </header>
+    </div>
   </body>
 </html>
