@@ -86,6 +86,7 @@ def sign_up_check():
     exists = bool(db.users.find_one({"id": id_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
+
 @app.route('/sign_up/email_chkid', methods=['POST'])
 def check_dup_email():
     # 이메일 중복 확인
@@ -93,9 +94,11 @@ def check_dup_email():
     exists = bool(db.users.find_one({"email": email_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
+
 @app.route('/bookadd')
 def bookadd_template():
     return render_template('bookadd.html')
+
 
 @app.route("/book", methods=["POST"])
 def book_add():
@@ -138,6 +141,30 @@ def book_add():
     db.book.insert_one(doc)
 
     return jsonify({'msg' : '등록 완료!'})
+
+
+@app.route("/reviewadd/<book_num>")
+def review_add(book_num):
+    book_info = db.book.find_one({"num": int(book_num)}, {'_id': False})
+    return render_template('reviewadd.html', book=book_info)
+
+@app.route("/api/review", methods=["POST"])
+def api_review_add():
+    book_num = int(request.form['book_num'])
+    review = request.form['review']
+    review_list = list(db.review.find({}, {'_id': False}))
+    count = len(review_list)
+
+    doc = {
+        'book_num': book_num,
+        'num': count,
+        'review': review
+    }
+
+    db.review.insert_one(doc)
+
+    return jsonify({'msg' : '등록 완료!'})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

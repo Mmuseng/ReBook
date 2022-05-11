@@ -80,16 +80,16 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-md-4">
             {% for book in books %}
-            <div class="col mb-4">
-                <div class="card">
-                    <img src="/static/{{ book.file }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{book.title}}</h5>
-                        <p class="card-text">{{book.desc}}</p>
-                        <a href="/book/{{ book.num }}" class="btn btn-primary">더보기</a>
+                <div class="col mb-4">
+                    <div class="card">
+                        <img src="/static/{{book.file}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{book.title}}</h5>
+                            <p class="card-text">{{book.desc}}</p>
+                            <a href="/book/{{ book.num }}" class="btn btn-primary">더보기</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
