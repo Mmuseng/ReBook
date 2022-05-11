@@ -35,3 +35,14 @@ function sign_in() {
         }
     });
 }
+
+$(document).ready(function () {
+    $('#login_form').on("keypress", function (e) {
+        if (e.keyCode === 13) {
+            sign_in();
+        }
+    });
+})
+
+
+

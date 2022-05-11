@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <!-- Webpage Title -->
@@ -18,51 +18,49 @@
     <link rel="stylesheet" href="../static/reset.css">
     <!-- Font Awesome CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&family=Yeon+Sung&display=swap"
-        rel="stylesheet">
-    <!-- css파일의 경로 설정 -->
-    <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+    <!-- css파일 경로 설정 -->
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <!-- script 파일의 경로 설정  -->
+    <!-- script 파일 경로 설정  -->
     <script src="../static/js/login.js"></script>
 </head>
 
-<body>
-    <section class="section">
-        <div class="container">
+<body class="page-login">
+    <div class="background"></div>
+    <div class="main">
+        <div class="login-wrap">
             <div class="logo">
                 <h1>ReBook</h1>
             </div>
             <div class="box">
-                <h1>로그인</h1>
+                <h2>로그인</h2>
                 <article class="media">
                     <div class="media-content">
-                        <div class="content">
-                            <div class="field has-addons">
-                                <div class="control has-icons-left" style="width:100%">
-                                    <input id="input-username" class="input" type="text" placeholder="아이디">
-                                    <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                        <form action="/" id="login_form">
+                            <div class="content">
+                                <div class="field has-addons">
+                                    <div class="control has-icons-left" style="width:100%">
+                                        <input id="input-username" class="input" type="text" placeholder="아이디">
+                                        <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <div id="btn-check-dup" class="control">
+                                    </div>
                                 </div>
-                                <div id="btn-check-dup" class="control">
+                                <p id="help-id-login" class="help is-danger"></p>
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input id="input-password" class="input" type="password" placeholder="비밀번호">
+                                        <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                                    </div>
                                 </div>
+                                <p id="help-password-login" class="help is-danger"></p>
                             </div>
-                            <p id="help-id-login" class="help is-danger"></p>
-                            <div class="field">
-                                <div class="control has-icons-left">
-                                    <input id="input-password" class="input" type="password" placeholder="비밀번호">
-                                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-                                </div>
-                            </div>
-                            <p id="help-password-login" class="help is-danger"></p>
-                        </div>
+                        </form>
                         <div id="div-sign-in-or-up" class="has-text-centered">
                             <nav class="level is-mobile">
-                                <button class="level-item button is-sparta" onclick="sign_in()">
+                                <button class="level-item button is-sparta login-button" onclick="sign_in()">
                                     로그인
                                 </button>
                             </nav>
@@ -79,7 +77,6 @@
                 </article>
             </div>
         </div>
-    </section>
+    </div>
 </body>
-
 </html>
