@@ -152,23 +152,28 @@ def api_review_add():
     review_list = list(db.review.find({}, {'_id': False}))
     count = len(review_list)
 
-    doc = {
-        'book_num': book_num,
-        'num': count,
-        'review': review
-    }
+    token_receive = request.cookies.get('token')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        
+        doc = {
+            'book_num': book_num,
+            'num': count,
+            'review': review,
+            'user_id': payload['user']
+        }
 
-    db.review.insert_one(doc)
+        db.review.insert_one(doc)
 
-    return jsonify({'msg' : '등록 완료!'})
+        return jsonify({'msg' : '등록 완료!'})
+    except:
+        return jsonify({'msg' : '등록 실패!'})
+        
 
 @app.route("/detail/<book_num>")
 def detail(book_num):
     book_info = db.book.find_one({"num": int(book_num)}, {'_id': False})
     review_list = list(db.review.find({"book_num": int(book_num)}, {'_id': False}))
-
-    print(book_info)
-    print(review_list)
 
     token_receive = request.cookies.get('token')
     try:
