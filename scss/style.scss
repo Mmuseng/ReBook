@@ -10,7 +10,11 @@ html, body {
 
 h1 {
     font-size: 64px;
-    color: #2641E2;
+    color: #2641E2 !important;
+    a {
+        color: #2641E2 !important;
+        text-decoration: none !important;
+    }
 }
 
 h2 {
