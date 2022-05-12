@@ -61,13 +61,13 @@
                     review
                 },
                 success: function (response) {
-                    window.location.href = '/';
+                    window.location.reload();
                 }
             });
         }
   </script>
 </head>
-<body class="page-review">
+<body class="page-review" data-index="{{book.num}}">
 <div class="wrap">
   <div class="header">
     <h1><a href="/">ReBook</a></h1>
@@ -98,19 +98,18 @@
     <div class="review"><!-- 리뷰 데이터 매핑 -->
       <ul>
           {% for review in reviews %}
-        <li>
-          <div class="user_name">test22222</div>
-          <div class="user_review">{{ review.review }}</div>
-        </li>
-        {% endfor %}
+          <li>
+            <div class="user_review">{{ review.review }}</div>
+          </li>
+          {% endfor %}
       </ul>
+      {% if login %}
+      <form id="reviewForm">
+          <textarea id="review" cols="30" rows="10"></textarea>
+          <button>전송</button>
+      </form>
+      {% endif %}
     </div>
-    {% if login %}
-    <form id="reviewForm">
-        <textarea id="review" cols="30" rows="10"></textarea>
-        <button>전송</button>
-    </form>
-    {% endif %}
   </div>
 </div>
 </body>
