@@ -5,9 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-          crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
           crossorigin="anonymous"></script>
@@ -23,6 +21,12 @@
 
       $(document).ready(function () {
           //get_definitions()
+
+          // 리뷰 쓰기 이벤트
+          $("#reviewForm").on("submit", function(e) {
+              e.preventDefault();
+              posting();
+          });
       })
 
       function get_definitions() {
@@ -43,6 +47,24 @@
               }
           });
       }
+
+
+      function posting() {
+            let book_num = parseInt($("body").data("index"));
+            let review = $("#review").val();
+            console.log(`book_num: ${book_num}, review: ${review}`);
+            $.ajax({
+                type: "POST",
+                url: "/api/review",
+                data: {
+                    book_num,
+                    review
+                },
+                success: function (response) {
+                    window.location.href = '/';
+                }
+            });
+        }
   </script>
 </head>
 <body class="page-review">
@@ -73,9 +95,6 @@
         {% endif %}
     </div>
     <h3>리뷰</h3>
-    {% if login %}
-      <a href="/reviewadd" class="">리뷰추가</a>
-    {% endif %}
     <div class="review"><!-- 리뷰 데이터 매핑 -->
       <ul>
         <li>
@@ -88,6 +107,12 @@
         </li>
       </ul>
     </div>
+    {% if login %}
+    <form id="reviewForm">
+        <textarea id="review" cols="30" rows="10"></textarea>
+        <button>전송</button>
+    </form>
+    {% endif %}
   </div>
 </div>
 </body>
