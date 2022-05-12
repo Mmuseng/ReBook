@@ -11,6 +11,25 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
+      <!-- favicon, ogtag -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='faviconbook.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='faviconbook.ico') }}"
+      type="image/x-icon"
+    />
+    <meta property="og:title" content="ReBook- 세상의 모든 책" />
+    <meta property="og:description" content="책을 읽고 리뷰를 작성해봅시다" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='ReBookimg.png') }}"
+    />
+
+
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
