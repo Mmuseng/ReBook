@@ -50,7 +50,7 @@ def login():
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)       # 로그인 24시간 유지
         }                                                                    # jwt 토큰을 발행. 놀이공원 자유입장권과 같은 것. 어떤 사람이 언제까지 입장이 유효하다를 적시해줌.
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        return jsonify({'result': 'success', 'token': token}).decode('utf-8')
+        return jsonify({'result': 'success', 'token': token})
         # 찾지 못하면,
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
@@ -169,7 +169,15 @@ def detail(book_num):
 
     print(book_info)
     print(review_list)
-    return render_template('detail.html', book=book_info, review=review_list)
+
+    token_receive = request.cookies.get('token')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        login_flag = True
+    except:
+        login_flag = False
+
+    return render_template('detail.html', book=book_info, reviews=review_list, login=login_flag)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

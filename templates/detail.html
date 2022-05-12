@@ -97,14 +97,12 @@
     <h3>리뷰</h3>
     <div class="review"><!-- 리뷰 데이터 매핑 -->
       <ul>
+          {% for review in reviews %}
         <li>
           <div class="user_name">test22222</div>
-          <div class="user_review">리뷰22222</div>
+          <div class="user_review">{{ review.review }}</div>
         </li>
-        <li>
-          <div class="user_name">test33333</div>
-          <div class="user_review">리뷰33333</div>
-        </li>
+        {% endfor %}
       </ul>
     </div>
     {% if login %}
