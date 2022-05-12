@@ -167,6 +167,14 @@ def api_review_add():
 
     return jsonify({'msg' : '등록 완료!'})
 
+@app.route("/detail/<book_num>")
+def detail(book_num):
+    book_info = db.book.find_one({"num": int(book_num)}, {'_id': False})
+    review_list = list(db.review.find({"book_num": int(book_num)}, {'_id': False}))
+
+    print(book_info)
+    print(review_list)
+    return render_template('detail.html', book=book_info, review=review_list)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

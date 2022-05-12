@@ -42,7 +42,7 @@
             <a href="/bookadd" class="book-add">책 추가</a>
             <div class="book-wrap">
             {% for book in books %}
-                <a class="book" href="/book/{{ book.num }}">
+                <a class="book" href="/detail/{{ book.num }}">
                     <div class="book-img">
                         <img src="/static/{{book.file}}" class="book-img-top" alt="...">
                     </div>
