@@ -145,11 +145,6 @@ def book_add():
     return jsonify({'msg' : '등록 완료!'})
 
 
-@app.route("/reviewadd/<book_num>")
-def review_add(book_num):
-    book_info = db.book.find_one({"num": int(book_num)}, {'_id': False})
-    return render_template('reviewadd.html', book=book_info)
-
 @app.route("/api/review", methods=["POST"])
 def api_review_add():
     book_num = int(request.form['book_num'])
