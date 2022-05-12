@@ -49,7 +49,7 @@ def login():
             'user': id_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)       # 로그인 24시간 유지
         }                                                                    # jwt 토큰을 발행. 놀이공원 자유입장권과 같은 것. 어떤 사람이 언제까지 입장이 유효하다를 적시해줌.
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
         return jsonify({'result': 'success', 'token': token})
         # 찾지 못하면,
     else:
